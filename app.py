@@ -1,22 +1,20 @@
+import os
 from flask import Flask
-from flask_cors import CORS
 from routes.auth import auth_bp
-from routes.user import user_bp
 from init_db import init_db
 from clients import client_bp
 
 app = Flask(__name__)
+app.secret_key = os.getenv('SECRET_KEY')
 app.register_blueprint(client_bp)
 
-# Настройка CORS
-CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Инициализация базы данных
+
+
 init_db()
 
-# Регистрация блюпринтов
-app.register_blueprint(auth_bp, url_prefix="/auth")
-app.register_blueprint(user_bp, url_prefix="/user")
+
+app.register_blueprint(client_bp, url_prefix="/auth", name="clinet_auth")
 
 @app.route('/')
 def home():
