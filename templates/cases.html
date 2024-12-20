@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Cases</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Insurance Cases</h1>
+
+    <div>
+        <a href="{{ url_for('client.clients_page') }}" class="nav-button">Back to Clients</a>
+    </div>
+
+    <h3>Add Insurance Case</h3>
+    <form method="POST" action="{{ url_for('client.add_case', client_id=client[0]) }}">
+        <textarea name="case_description" placeholder="Case Description" required class="case-description"></textarea>
+        <input type="date" name="case_date" placeholder="Case Date" required>
+        <button class="submit-button" type="submit">Add Case</button>
+    </form>
+
+    <h3>Insurance Cases List</h3>
+    <table>
+        <tr>
+            <th>Case Description</th>
+            <th>Case Date</th>
+            <th>Action</th>
+        </tr>
+        {% for case in cases %}
+        <tr>
+            <td class="case-description">{{ case[2] }}</td>
+            <td>{{ case[3] }}</td>
+            <td>
+                <form action="{{ url_for('client.delete_case', case_id=case[0]) }}" method="POST" style="display:inline;">
+                    <input type="hidden" name="client_id" value="{{ client[0] }}">
+                    <button class="delete-button" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

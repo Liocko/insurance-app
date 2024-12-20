@@ -1,0 +1,14 @@
+# Используем официальный образ Nginx
+FROM nginx:alpine
+
+# Копируем статические файлы в директорию, которую Nginx использует для обслуживания веб-контента
+COPY ./static /usr/share/nginx/html
+
+# Копируем пользовательский конфигурационный файл Nginx, если он есть
+# COPY ./nginx.conf /etc/nginx/nginx.conf
+
+# Открываем порт 80
+EXPOSE 80
+
+# Запускаем Nginx
+CMD ["nginx", "-g", "daemon off;"]
