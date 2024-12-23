@@ -2,7 +2,7 @@
 import unittest
 import psycopg2
 
-class TestDatabaseConnection(unittest.TestCase):
+class test_dbConnection(unittest.TestCase):
     def test_connection(self):
         try:
             conn = psycopg2.connect(
