@@ -15,6 +15,7 @@
 
     <h3>Add Insurance Case</h3>
     <form method="POST" action="{{ url_for('client.add_case', client_id=client[0]) }}">
+        <input type="text" name="policy_number" placeholder="Policy Number" required>
         <textarea name="case_description" placeholder="Case Description" required class="case-description"></textarea>
         <input type="date" name="case_date" placeholder="Case Date" required>
         <button class="submit-button" type="submit">Add Case</button>
@@ -23,14 +24,16 @@
     <h3>Insurance Cases List</h3>
     <table>
         <tr>
+            <th>Policy Number</th>
             <th>Case Description</th>
             <th>Case Date</th>
             <th>Action</th>
         </tr>
         {% for case in cases %}
         <tr>
-            <td class="case-description">{{ case[2] }}</td>
             <td>{{ case[3] }}</td>
+            <td class="case-description">{{ case[2] }}</td>
+            <td>{{ case[4] }}</td>
             <td>
                 <form action="{{ url_for('client.delete_case', case_id=case[0]) }}" method="POST" style="display:inline;">
                     <input type="hidden" name="client_id" value="{{ client[0] }}">
